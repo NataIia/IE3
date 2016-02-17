@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">ElectroMan</string>
+
+    <string name="hello_world">Good morning! Here is the list of your tasks for today!</string>
+    <string name="action_settings">Settings</string>
+    <string name="tv_problem_id">Problem ID</string>
+    <string name="tv_problem_title">Problem Title</string>
+    <string name="tv_problem_description">Problem Description</string>
+    <string name="tv_detailed_problem_description">Detailed problem description</string>
+    <string name="tv_full_address">Full address</string>
+    <string name="btn_back">Back</string>
+</resources>
