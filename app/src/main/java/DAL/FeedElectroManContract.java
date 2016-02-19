@@ -22,6 +22,27 @@ public final class FeedElectroManContract {
         public static final String COLUMN_PROBLEM_TITLE = "problemTitle";
         public static final String COLUMN_PROBLEM_DESCRIPTION = "problemDescription";
         public static final String COLUMN_PROBLEM_SOLVED = "problemIsSolved";
+        public static final String COLUMN_PROBLEM_SOLUTION = "problemSolution";
         public static final String COLUMN_PROBLEM_CLIENT = "cliendId";
+        public static final String COLUMN_PROBLEM_CLIENT_ADDRESS = "problemClientAddressId";
+    }
+
+    public static abstract class FeedClient implements BaseColumns{
+        public static final String TABLE_CLIENT="tbl_client";
+        public static final String COLUMN_CLIENT_ID = "clientId";
+        public static final String COLUMN_CLIENT_NAME = "clientName";
+        public static final String COLUMN_CLIENT_FIRST_NAME = "clientFirstName";
+    }
+
+    public static abstract class FeedAddress implements BaseColumns{
+        public static final String TABLE_ADDRESS="tbl_address";
+
+
+    }
+
+    public static abstract class FeedClientAddress implements BaseColumns{
+        public static final String TABLE_CLIENT="tbl_client_address";
+
+
     }
 }
