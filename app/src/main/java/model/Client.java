@@ -18,6 +18,7 @@ public class Client {
     }
 
     public Client(String id, String clientId, String name, String firstName) {
+        this();
         this.id = id;
         this.clientId = clientId;
         this.name = name;

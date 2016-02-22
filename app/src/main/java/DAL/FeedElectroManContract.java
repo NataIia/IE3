@@ -20,11 +20,12 @@ public final class FeedElectroManContract {
         public static final String TABLE_PROBLEM = "tbl_problem";
         public static final String COLUMN_PROBLEM_ID = "problemId";
         public static final String COLUMN_PROBLEM_TITLE = "problemTitle";
+        public static final String COLUMN_PROBLEM_DEVICE = "problemDevice";
         public static final String COLUMN_PROBLEM_DESCRIPTION = "problemDescription";
         public static final String COLUMN_PROBLEM_SOLVED = "problemIsSolved";
         public static final String COLUMN_PROBLEM_SOLUTION = "problemSolution";
-        public static final String COLUMN_PROBLEM_CLIENT = "cliendId";
-        public static final String COLUMN_PROBLEM_CLIENT_ADDRESS = "problemClientAddressId";
+        public static final String COLUMN_PROBLEM_CLIENT = "fk_cliendId";
+        public static final String COLUMN_PROBLEM_CLIENT_ADDRESS = "fk_problemClientAddressId";
     }
 
     public static abstract class FeedClient implements BaseColumns{
@@ -36,13 +37,18 @@ public final class FeedElectroManContract {
 
     public static abstract class FeedAddress implements BaseColumns{
         public static final String TABLE_ADDRESS="tbl_address";
-
+        public static final String COLUMN_ADDRESS_ID = "addressId";
+        public static final String COLUMN_ADDRESS_STREET = "addressStreet";
+        public static final String COLUMN_ADDRESS_BOX = "addressBox";
+        public static final String COLUMN_ADDRESS_POST_CODE = "addressPostCode";
+        public static final String COLUMN_ADDRESS_CITY = "addressCity";
+        public static final String COLUMN_ADDRESS_COUNTRY = "addressCountry";
 
     }
 
     public static abstract class FeedClientAddress implements BaseColumns{
-        public static final String TABLE_CLIENT="tbl_client_address";
-
-
+        public static final String TABLE_CLIENT_ADDRESS="tbl_client_address";
+        public static final String COLUMN_CLIENT_ADDRESS_CLIENT_ID = "fk_cliendId";
+        public static final String COLUMN_CLIENT_ADDRESS_ADDRESS_ID = "fk_addressId";
     }
 }

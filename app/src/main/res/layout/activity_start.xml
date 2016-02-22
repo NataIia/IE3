@@ -13,6 +13,10 @@
             android:text="@string/hello_world"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+    <TextView
+            android:text="@string/tv_click_to_expand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     <TableLayout
             android:id="@+id/tbl_table_header"
             android:layout_width="fill_parent"

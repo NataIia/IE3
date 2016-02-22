@@ -59,10 +59,13 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             dataRow = new TableRow(this);
             dataRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
-            dataRow.addView(setCellContent(problem.getId()));
-            dataRow.addView(setCellContent(problem.getProblemId()));
-            dataRow.addView(setCellContent(problem.getProblemTitle()));
-            dataRow.addView(setCellContent(problem.getProblemDescription()));
+            dataRow.addView(setCellTextContent(problem.getAddress().getCity()));
+            dataRow.addView(setCellTextContent(problem.getProblemDevice()));
+            dataRow.addView(setCellTextContent(problem.getProblemId()));
+            dataRow.addView(setCellTextContent(problem.getClient().getName()));
+            Button btn = new Button(this);
+            btn.setText(problem.isProblemSolved().toString());
+            dataRow.addView(btn);
             dataRow.setId(Integer.parseInt(problem.getId())); //pass problem ID via row ID
             dataRow.setOnClickListener(this); // set TableRow onClickListner
             tableLayout.addView(dataRow);
@@ -97,8 +100,8 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
         Bundle dataBundle = new Bundle();
         dataBundle.putInt("problemId", v.getId());
-        dataBundle.putString("problemDescription", electroManInitilizer.getDbHelper().findProblemNyId(v.getId()).getProblemDescription());
-        dataBundle.putString("problemAddress", "address " + electroManInitilizer.getDbHelper().findProblemNyId(v.getId()).getProblemDescription());
+        dataBundle.putString("problemDescription", electroManInitilizer.getDbHelper().findProblemById(v.getId()).getProblemDescription());
+        dataBundle.putString("problemAddress", electroManInitilizer.getDbHelper().findProblemById(v.getId()).getAddress().toString());
 
         Intent intent = new Intent(getApplicationContext(),DisplayProblem.class);
 
@@ -106,7 +109,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         startActivity(intent);
     }
 
-    private TextView setCellContent(String content){
+    private TextView setCellTextContent(String content){
         TextView tv = new TextView(this);
         tv.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 1f)); //cells with the same width and height
         tv.setBackgroundResource(R.drawable.cell_shape);

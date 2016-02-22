@@ -21,6 +21,7 @@ public class Address {
     }
 
     public Address(String id, String addressId, String street, String box, String postCode, String city, String country) {
+        this();
         this.id = id;
         this.addressId = addressId;
         this.street = street;
@@ -96,5 +97,10 @@ public class Address {
 
     public void removeClient(Client client){
         clients.remove(client);
+    }
+
+    @Override
+    public String toString() {
+        return street + ", " + box + ", " + postCode + ", " + city + ", " + country;
     }
 }
