@@ -16,9 +16,13 @@ import java.util.ArrayList;
 
 public class StartActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final int REQUEST_CODE = 1234;
+
     private TableLayout tableHeader, tableLayout;
     private InitializeElectroMan electroManInitilizer;
     private String[] headers = {"City", "Device", "Problem code", "Name", "Processed"};
+
+    private TableRow dataRow = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +38,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
         electroManInitilizer = new InitializeElectroMan(this);
 
-        ArrayList<Problem> problems = electroManInitilizer.getDbHelper().getAllProblems();
+//        ArrayList<Problem>  problems = electroManInitilizer.getDbHelper().getAllProblems();
 
         TableRow headerRow = new TableRow(this);
         headerRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
@@ -52,7 +56,15 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             headerRow.addView(tv);
         }
         tableHeader.addView(headerRow);
-        TableRow dataRow = null;
+
+        setProblemsTable();
+    }
+
+    public  void setProblemsTable()
+    {
+        tableLayout.removeAllViews();
+
+        ArrayList<Problem> problems = electroManInitilizer.getDbHelper().getAllProblems();
 
         for (Problem problem : problems) //set problems list as scrolable table
         {
@@ -63,37 +75,21 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             dataRow.addView(setCellTextContent(problem.getProblemDevice()));
             dataRow.addView(setCellTextContent(problem.getProblemId()));
             dataRow.addView(setCellTextContent(problem.getClient().getName()));
-            Button btn = new Button(this);
-            btn.setText(problem.isProblemSolved().toString());
-            dataRow.addView(btn);
+            if(problem.isProblemSolved()) dataRow.addView(setCellTextContent("YES"));
+            else{
+                Button btn = new Button(this);
+//            btn.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+//                    LinearLayout.LayoutParams.WRAP_CONTENT));
+                btn.setText("NO");
+                btn.setOnClickListener(new RepairButtonOnClickListener(problem));
+                dataRow.addView(btn);
+            }
             dataRow.setId(Integer.parseInt(problem.getId())); //pass problem ID via row ID
             dataRow.setOnClickListener(this); // set TableRow onClickListner
             tableLayout.addView(dataRow);
         }
-
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_start, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public void onClick(View v) {
@@ -102,8 +98,12 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         dataBundle.putInt("problemId", v.getId());
         dataBundle.putString("problemDescription", electroManInitilizer.getDbHelper().findProblemById(v.getId()).getProblemDescription());
         dataBundle.putString("problemAddress", electroManInitilizer.getDbHelper().findProblemById(v.getId()).getAddress().toString());
+        dataBundle.putString("phone", " +32494863885"); //need to add column to client table with phone number, for testing one number is hardcoded
 
-        Intent intent = new Intent(getApplicationContext(),DisplayProblem.class);
+        if (electroManInitilizer.getDbHelper().findProblemById(v.getId()).isProblemSolved())
+            dataBundle.putString("problemSolution", electroManInitilizer.getDbHelper().findProblemById(v.getId()).getProblemSolutionNotes());
+
+        Intent intent = new Intent(getApplicationContext(),DisplayProblemActivity.class);
 
         intent.putExtras(dataBundle);
         startActivity(intent);
@@ -119,4 +119,36 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         return tv;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if ( resultCode == RESULT_OK && requestCode == REQUEST_CODE )
+        {
+            Problem problem = electroManInitilizer.getDbHelper().findProblemById(Integer.parseInt(data.getStringExtra("problemId")));
+            electroManInitilizer.getDbHelper().updateProblem(problem, data.getStringExtra("solution"));
+            Toast toast = Toast.makeText(this, "The problem " + problem.getId() + " is solved.", Toast.LENGTH_LONG);
+            toast.show();
+            setProblemsTable();
+        }
+    }
+
+    class RepairButtonOnClickListener implements View.OnClickListener{
+
+        private Problem problem;
+
+        public RepairButtonOnClickListener(Problem problem) {
+            this.problem = problem;
+        }
+
+        @Override
+        public void onClick(View v) {
+
+            Bundle dataBundle = new Bundle();
+            dataBundle.putString("problemId", problem.getId());
+            Intent intent = new Intent(getApplicationContext(),RepairActivity.class);
+            intent.putExtras(dataBundle);
+            startActivityForResult(intent, REQUEST_CODE);
+        }
+    }
 }

@@ -259,4 +259,44 @@ public class ElectroManDbHelper extends SQLiteOpenHelper {
         }
         return c;
     }
+
+    public boolean problemInitialized()
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from " + FeedProblem.TABLE_PROBLEM, null );
+        return !(res.getCount() == 0);
+    }
+
+    public boolean clientInitialized()
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from " + FeedClient.TABLE_CLIENT, null );
+        return !(res.getCount() == 0);
+    }
+
+    public boolean addressInitialized()
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from " + FeedAddress.TABLE_ADDRESS, null );
+        return !(res.getCount() == 0);
+    }
+
+    public void updateProblem(Problem problem, String problemSolution){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues data=new ContentValues();
+        data.put(FeedProblem.COLUMN_PROBLEM_SOLUTION, problemSolution);
+        data.put(FeedProblem.COLUMN_PROBLEM_SOLVED, "0");
+        db.update(FeedProblem.TABLE_PROBLEM, data, FeedProblem._ID + "=" + problem.getId(), null);
+
+//        String solutionSQL = "UPDATE " +FeedProblem.TABLE_PROBLEM +
+//                " SET " + FeedProblem.COLUMN_PROBLEM_SOLUTION + " = " + problemSolution +
+//                " WHERE " + FeedProblem._ID + " = "+ problem.getId();
+//
+//        String solvedSQL = "UPDATE " +FeedProblem.TABLE_PROBLEM +
+//                " SET " + FeedProblem.COLUMN_PROBLEM_SOLVED + " = 1 " +
+//                " WHERE " + FeedProblem._ID + " = "+ problem.getId();
+//
+//        db.execSQL(solutionSQL);
+    }
 }

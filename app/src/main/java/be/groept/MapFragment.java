@@ -77,6 +77,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback{
         // Add a marker in Sydney and move the camera
         LatLng coordinates = new LatLng(location.getLatitude(), location.getLongitude());
         googleMap.addMarker(new MarkerOptions().position(coordinates).title("The problem is here"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(coordinates));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coordinates, 15f));
     }
 }
