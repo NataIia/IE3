@@ -8,7 +8,7 @@
     <string name="tv_problem_description">Problem Description</string>
     <string name="tv_detailed_problem_description">Detailed problem description</string>
     <string name="tv_full_address">Full address</string>
-    <string name="tv_click_to_expand">Click on problem to see details</string>
+    <string name="tv_click_to_expand">Click on problem to see details. Do not forget to scroll the list down. There is a chance you have more items then on display</string>
     <string name="tv_repair">ElectroDoctor repair information</string>
     <string name="et_repair_hint">Enter repair details here...</string>
     <string name="btn_back">Back</string>

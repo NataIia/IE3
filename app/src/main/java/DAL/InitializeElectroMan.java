@@ -28,6 +28,21 @@ public class InitializeElectroMan {
             dbHelper.insertProblem("problem1", "title problem 1", "device1", "description problem 1", null, false, client1, address1);
             dbHelper.insertProblem("problem2", "title problem 2", "device2", "description problem 2", null, false, client2, address2);
             dbHelper.insertProblem("problem3", "title problem 3", "device3", "description problem 3", null, false, client3, address3);
+            dbHelper.insertProblem("problem4", "title problem 4", "device4", "description problem 4", null, false, client1, address1);
+            dbHelper.insertProblem("problem5", "title problem 5", "device5", "description problem 5", null, false, client2, address2);
+            dbHelper.insertProblem("problem6", "title problem 6", "device6", "description problem 6", null, false, client3, address3);
+            dbHelper.insertProblem("problem7", "title problem 1", "device1", "description problem 1", null, false, client1, address1);
+            dbHelper.insertProblem("problem8", "title problem 2", "device2", "description problem 2", null, false, client2, address2);
+            dbHelper.insertProblem("problem9", "title problem 3", "device3", "description problem 3", null, false, client3, address3);
+            dbHelper.insertProblem("problem10", "title problem 4", "device4", "description problem 4", null, false, client1, address1);
+            dbHelper.insertProblem("problem11", "title problem 5", "device5", "description problem 5", null, false, client2, address2);
+            dbHelper.insertProblem("problem12", "title problem 6", "device6", "description problem 6", null, false, client3, address3);
+            dbHelper.insertProblem("problem13", "title problem 1", "device1", "description problem 1", null, false, client1, address1);
+            dbHelper.insertProblem("problem14", "title problem 2", "device2", "description problem 2", null, false, client2, address2);
+            dbHelper.insertProblem("problem15", "title problem 3", "device3", "description problem 3", null, false, client3, address3);
+            dbHelper.insertProblem("problem16", "title problem 4", "device4", "description problem 4", null, false, client1, address1);
+            dbHelper.insertProblem("problem17", "title problem 5", "device5", "description problem 5", null, false, client2, address2);
+            dbHelper.insertProblem("problem18", "title problem 6", "device6", "description problem 6", null, false, client3, address3);
         }
     }
 
